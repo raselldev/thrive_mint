@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Flexible(child: Text("asdasd")),
+                    const Flexible(child: Text("asdasd")),
                   ],
                 ),
               ),
