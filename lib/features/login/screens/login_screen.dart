@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
+import 'package:thrive_mint/features/login/controller/login_controller.dart';
 import 'package:thrive_mint/res/color/custom_color.dart';
 import 'package:thrive_mint/res/components/text_field/custom_text_field.dart';
 import 'package:thrive_mint/res/typography/custom_typography.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = '/login';
-  const LoginScreen({super.key});
+  final LoginController controller = Get.put(LoginController());
+
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = TextEditingController();
-    final FocusNode focusNode = FocusNode();
     return Scaffold(
       backgroundColor: CustomColor.primaryColor,
       body: SafeArea(
@@ -35,18 +37,34 @@ class LoginScreen extends StatelessWidget {
               ),
               const Gap(50),
               CustomTextField(
-                hint: 'Enter your text',
-                isObscureText: false,
-                isDense: true,
-                controller: controller,
-                focusNode: focusNode,
+                obscureText: false,
+                controller: controller.emailController,
+                labelText: "Email",
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+                onChanged: (value) {
+                  controller.validateEmail(value);
+                },
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
+                  controller.validateEmail(value);
                   return null;
                 },
-                onChanged: (value) {},
+              ),
+              const Gap(20),
+              CustomTextField(
+                suffixIcon: Icon(Icons.visibility_outlined),
+                obscureText: true,
+                controller: controller.passwordController,
+                labelText: "Password",
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+                onChanged: (value) {
+                  controller.validateEmail(value);
+                },
+                validator: (value) {
+                  controller.validateEmail(value);
+                  return null;
+                },
               ),
             ],
           ),

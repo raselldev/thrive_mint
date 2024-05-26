@@ -3,75 +3,88 @@ import 'package:thrive_mint/res/color/custom_color.dart';
 import 'package:thrive_mint/res/typography/custom_typography.dart';
 
 class CustomTextField extends StatelessWidget {
-  final String hint;
-  final Widget? suffixIcon;
-  final FocusNode? focusNode;
-  final Function(String)? onChanged;
-  final bool? isObscureText;
-  final bool? isDense;
-  final TextEditingController? controller;
-  final Function(String?) validator;
-
   const CustomTextField({
+    required this.textInputAction,
+    required this.labelText,
+    required this.keyboardType,
+    required this.controller,
     super.key,
-    required this.hint,
-    this.suffixIcon,
-    this.isObscureText,
-    this.isDense,
-    this.controller,
     this.onChanged,
+    this.validator,
+    this.obscureText,
+    this.suffixIcon,
+    this.onEditingComplete,
+    this.autofocus,
     this.focusNode,
-    required this.validator,
   });
+
+  final void Function(String)? onChanged;
+  final String? Function(String?)? validator;
+  final TextInputAction textInputAction;
+  final TextInputType keyboardType;
+  final TextEditingController controller;
+  final bool? obscureText;
+  final Widget? suffixIcon;
+  final String labelText;
+  final bool? autofocus;
+  final FocusNode? focusNode;
+  final void Function()? onEditingComplete;
+
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      focusNode: focusNode,
-      validator: (value) {
-        return validator(value);
-      },
-      onChanged: onChanged,
-      controller: controller,
-      decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: CustomTypography.bodyTiny,
-        isDense: isDense ?? true,
-        filled: true,
-        fillColor: CustomColor.whiteColor,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 17),
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: TextFormField(
+        controller: controller,
+        keyboardType: keyboardType,
+        textInputAction: textInputAction,
+        focusNode: focusNode,
+        onChanged: onChanged,
+        autofocus: autofocus ?? false,
+        validator: validator,
+        obscureText: obscureText ?? false,
+        obscuringCharacter: '*',
+        onEditingComplete: onEditingComplete,
+        decoration: InputDecoration(
+          suffixIcon: GestureDetector(
+            child: suffixIcon,
+            onTap: () => obscureText,
+          ),
+          labelText: labelText,
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          suffixIconColor: CustomColor.whiteColor,
+          border: OutlineInputBorder(
+            borderSide: const BorderSide(
+              width: 2,
+              color: CustomColor.whiteColor,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              width: 2,
+              color: CustomColor.whiteColor,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              width: 2,
+              color: CustomColor.whiteColor,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          labelStyle: CustomTypography.bodySmall.copyWith(
             color: CustomColor.whiteColor,
-            width: 1.3,
           ),
-          borderRadius: BorderRadius.circular(10),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: CustomColor.whiteColor,
-            width: 1.3,
-          ),
-          borderRadius: BorderRadius.circular(10),
+        onTapOutside: (event) => FocusScope.of(context).unfocus(),
+        style: const TextStyle(
+          fontWeight: FontWeight.w500,
+          color: CustomColor.whiteColor,
         ),
-        errorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: CustomColor.primaryColor,
-            width: 1.3,
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: CustomColor.primaryColor,
-            width: 1.3,
-          ),
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        suffixIcon: suffixIcon,
+        cursorColor: CustomColor.whiteColor,
       ),
-      obscureText: isObscureText ?? false,
-      style: CustomTypography.bodyTiny,
     );
   }
 }

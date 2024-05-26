@@ -15,12 +15,6 @@ class CustomTypography {
     letterSpacing: 0,
     color: Colors.black,
   );
-  static TextStyle bodySmallWhite = GoogleFonts.poppins(
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 0,
-    color: Colors.white,
-  );
   static TextStyle titleLarge = GoogleFonts.poppins(
     fontSize: 34,
     fontWeight: FontWeight.w600,

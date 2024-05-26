@@ -14,7 +14,7 @@ class Nav {
     // LOGIN
     GetPage(
       name: LoginScreen.routeName,
-      page: () => const LoginScreen(),
+      page: () => LoginScreen(),
       transition: Transition.cupertino,
     ),
 
