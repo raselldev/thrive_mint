@@ -36,36 +36,51 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               const Gap(50),
-              CustomTextField(
-                obscureText: false,
-                controller: controller.emailController,
-                labelText: "Email",
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.next,
-                onChanged: (value) {
-                  controller.validateEmail(value);
+              TextField(
+                decoration: InputDecoration(
+                  labelText: "Username",
+                  enabledBorder: const OutlineInputBorder(borderSide: BorderSide(width: 2.5, color: CustomColor.whiteColor,),),
+                  focusedBorder: const OutlineInputBorder(borderSide: BorderSide(width: 2.5, color: CustomColor.whiteColor,),),
+                  labelStyle: CustomTypography.labelMedium.copyWith(
+                    color: CustomColor.whiteColor,
+                  ),
+                  suffixIcon: Icon(Icons.visibility_outlined),
+                  suffixIconColor: CustomColor.whiteColor,
+                ),
+                onTapOutside: (event) {
+                  FocusScope.of(context).unfocus();
                 },
-                validator: (value) {
-                  controller.validateEmail(value);
-                  return null;
-                },
-              ),
-              const Gap(20),
-              CustomTextField(
-                suffixIcon: Icon(Icons.visibility_outlined),
-                obscureText: true,
-                controller: controller.passwordController,
-                labelText: "Password",
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.next,
-                onChanged: (value) {
-                  controller.validateEmail(value);
-                },
-                validator: (value) {
-                  controller.validateEmail(value);
-                  return null;
-                },
-              ),
+              )
+              // CustomTextField(
+              //   obscureText: false,
+              //   controller: controller.emailController,
+              //   labelText: "Email",
+              //   keyboardType: TextInputType.emailAddress,
+              //   textInputAction: TextInputAction.next,
+              //   onChanged: (value) {
+              //     controller.validateEmail(value);
+              //   },
+              //   validator: (value) {
+              //     controller.validateEmail(value);
+              //     return null;
+              //   },
+              // ),
+              // const Gap(20),
+              // CustomTextField(
+              //   suffixIcon: Icon(Icons.visibility_outlined),
+              //   obscureText: true,
+              //   controller: controller.passwordController,
+              //   labelText: "Password",
+              //   keyboardType: TextInputType.emailAddress,
+              //   textInputAction: TextInputAction.next,
+              //   onChanged: (value) {
+              //     controller.validateEmail(value);
+              //   },
+              //   validator: (value) {
+              //     controller.validateEmail(value);
+              //     return null;
+              //   },
+              // ),
             ],
           ),
         ),
